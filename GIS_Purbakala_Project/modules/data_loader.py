@@ -5,8 +5,11 @@ import os
 @st.cache_data
 def load_all_data():
     """Memuat seluruh file GeoJSON dari folder 'data' dan menyimpannya di cache."""
-    data_dir = "data"
-    
+    # Path absolut berdasarkan lokasi file ini (modules/data_loader.py)
+    # Supaya path selalu benar baik dijalankan di lokal maupun di Streamlit Cloud
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(BASE_DIR, "..", "data")
+
     candi = gpd.read_file(os.path.join(data_dir, 'Situs_candi.geojson'))
     fasilitas = gpd.read_file(os.path.join(data_dir, 'fasilitas_informasi.geojson'))
     inti = gpd.read_file(os.path.join(data_dir, 'zona_inti.geojson'))
